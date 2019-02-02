@@ -1,0 +1,120 @@
+<resources>
+    <string name="app_name">Rental Demo</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_name">Name</string>
+    <string name="btn_login">LOGIN</string>
+    <string name="btn_register">REGISTER</string>
+    <string name="btn_link_to_register">Not a member? Sign up now.</string>
+    <string name="sign_up">Proceed</string>
+    <string name="has_registered_login">Has registered. Login</string>
+    <string name="phone">Phone</string>
+    <string name="title_activity_home">Find Car</string>
+    <string name="my_cars">My Cars</string>
+    <string name="add_car">Add a car</string>
+    <string name="remove_car">Remove a car</string>
+    <string name="add_car_name">Car name..</string>
+    <string name="add_car_pic">Car picture</string>
+    <string name="car_brand">Car Brand: </string>
+    <string name="fuel_type">Energy Source: </string>
+    <string name="car_seat_numer">Seats Number: </string>
+    <string name="car_status">Status: </string>
+    <string name="plate_number">Plate-Number :</string>
+    <string name="car_description_hint">Car Description</string>
+    <string name="car_model_hint">Car Model</string>
+    <string name="car_transmission">Transmission</string>
+    <string name="car_milage">Kilometers</string>
+    <string name="btn_nmbr">Sign in with phone number instead</string>
+    <string name="hint_phone_number">Enter your phone number...</string>
+    <string name="veri_code">Verification code sent by SMS
+    please enter your verification code:</string>
+    <string name="car_size">Car Size</string>
+    <string name="car_price">Car Price per hour</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+    <string name="booking">View Cars</string>
+    <string name="search_cars">Search Cars</string>
+    <string name="my_profile">My Profile</string>
+    <string name="home">Home</string>
+    <string name="share">Share</string>
+    <string name="feedback">Feedback</string>
+    <string name="about_us">About Us</string>
+    <string name="logout">Logout</string>
+    <string name="car_price_per_day">Car price per day</string>
+    <string name="add_car_place">Default pick up location</string>
+    <string name="pick_up_location">Pick up location</string>
+
+    <string name="daily_price">Daily Price</string>
+
+    <string name="extra_hours">Extra Hours</string>
+    <string name="total_amount">Total Amount</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="select_by_car_category">Select Cars by Category</string>
+    <string name="pick_date_time">Touch to pick a date and time </string>
+    <string-array name="car_option">
+        <item>7 Seater</item>
+        <item>4 Seater</item>
+        <item>2 Seater</item>
+    </string-array>
+
+    <string-array name="car_size">
+        <item>Mini</item>
+        <item>Economy</item>
+        <item>SUV</item>
+        <item>7 Seater</item>
+        <item>Convertible</item>
+    </string-array>
+
+    <string-array name="car_transmission_array">
+        <item>Automatic</item>
+        <item>Manual</item>
+    </string-array>
+
+    <string-array name="car_brand">
+        <item>Toyota</item>
+        <item>Mercedes</item>
+        <item>Mazda</item>
+        <item>Volvo</item>
+        <item>Daewoo</item>
+        <item>Jeep</item>
+    </string-array>
+
+    <string-array name="car_gas">
+        <item>Electric</item>
+        <item>Hybrid</item>
+        <item>Petrol only</item>>
+    </string-array>
+
+    <string-array name="car_status">
+        <item>Available</item>
+        <item>Not available</item>
+    </string-array>
+
+    <string-array name="rating">
+        <item>1 Star</item>
+        <item>2 Stars</item>
+        <item>3 Stars</item>
+        <item>4 Stars</item>
+        <item>5 Stars</item>
+    </string-array>
+
+
+    <string name="title_activity_destination">Choose Destination</string>
+    <string name="my_destination">My destination</string>
+    <string name="_12_new_crescent_road">Nygatan 11, 24231 Horby</string>
+    <string name="distance_by_kilometers">Distance by kilometers</string>
+    <string name="price_estimation">Rental Price Estimation</string>
+    <string name="title_activity_location">Destination</string>
+    <string name="title_activity_booking">Book a car</string>
+    <string name="title_activity_account">Account</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="profile">Profile</string>
+    <string name="reservation">Reservation</string>
+    <string name="title_activity_checkout">Make Payment</string>
+    <string name="info">Policy &amp; Terms</string>
+    <string name="title_activity_product">ProductActivity</string>
+
+</resources>
