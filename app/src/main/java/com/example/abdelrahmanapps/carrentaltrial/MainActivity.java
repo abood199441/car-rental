@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
                 Intent signUp = new Intent(MainActivity.this,SignUpActivity.class);
                 startActivity(signUp);
 
@@ -72,18 +71,17 @@ public class MainActivity extends AppCompatActivity {
             public void onMapReady(GoogleMap googleMap) {
             }
         });
-        // Check if user is signed in (non-null) and update UI accordingly.
+        // Check if user is signed in (non-null).
             FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser!=null){
 
-
+            //if a user is signed in, send to the home activity.
             Intent homeIntent = new Intent(MainActivity.this, HomeActivity.class);
             startActivity(homeIntent);
             Toast.makeText(this,currentUser.getEmail(),Toast.LENGTH_LONG).show();
 
             finish();
         }
-        //  updateUI(currentUser);
 
     }
 

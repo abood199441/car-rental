@@ -66,7 +66,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             actionBar.hide();
         }
 
-
+        //start the sign up process.
         signUp();
 
         names = findViewById(R.id.name);
@@ -105,11 +105,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 user = FirebaseAuth.getInstance().getCurrentUser();
                 // ...
             } else {
+                //sign in failed.
+                //check response.getError().getErrorCode() and handle the error.
+                if(response!=null){
+                    Helper.showMessageDialog(this,"Error signing up with error code: "+
+                            response.getError().getErrorCode() + ", please try again later. ");
+                }
+                // If response is null the user canceled the sign-in flow using the back button.
 
-                Helper.showMessageDialog(this,"Error signing up please try again later.");
-                // Sign in failed. If response is null the user canceled the
-                // sign-in flow using the back button. Otherwise check
-                // response.getError().getErrorCode() and handle the error.
                 // ...
             }
         }
@@ -143,13 +146,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     public void createUser() {
+        //update user info
         updateUserInfo(mNames, user.getPhoneNumber(), mEmail, SignUpActivity.this);
 
+        //send user to home page and finish this activity.
         Intent startUp = new Intent(this,HomeActivity.class);
         startActivity(startUp);
-
-
-
+        finish();
     }
 
 

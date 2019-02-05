@@ -1,13 +1,11 @@
 package com.example.abdelrahmanapps.carrentaltrial;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
@@ -23,7 +21,6 @@ import com.example.abdelrahmanapps.carrentaltrial.fragment.ProfileFragment;
 import com.example.abdelrahmanapps.carrentaltrial.fragment.ReservationFragment;
 import com.example.abdelrahmanapps.carrentaltrial.utils.Constants;
 import com.example.abdelrahmanapps.carrentaltrial.utils.Helper;
-import com.google.android.gms.auth.api.accounttransfer.AccountTransfer;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -36,10 +33,10 @@ import java.io.InputStream;
 public class AccountActivity extends AppCompatActivity {
 
     private static final String TAG = AccountActivity.class.getSimpleName();
-    private String tag;
+    private String fragmentTag;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
-    private Fragment fragment;
+    private Fragment accountFragment;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -50,20 +47,20 @@ public class AccountActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_profile:
                     fragments = new ProfileFragment();
-                    tag="profile_frag";
+                    fragmentTag ="profile_frag";
                     break;
                 case R.id.navigation_reservation:
                     fragments = new ReservationFragment();
-                    tag="nav_res";
+                    fragmentTag ="nav_res";
                     break;
                 case R.id.navigation_mycars:
                     fragments = new MyCarsFragment();
-                    tag="nav_cars";
+                    fragmentTag ="nav_cars";
                     break;
             }
 
             fragmentTransaction  = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.content, fragments,tag).commit();
+            fragmentTransaction.replace(R.id.content, fragments, fragmentTag).commit();
             overridePendingTransition(R.anim.fui_slide_in_right,R.anim.fui_slide_out_left);
 
             return true;
@@ -81,11 +78,11 @@ public class AccountActivity extends AppCompatActivity {
 
         }
 
-        fragment = new ProfileFragment();
-        tag="profile_frag";
+        accountFragment = new ProfileFragment();
+        fragmentTag ="profile_frag";
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.content, fragment,tag).commit();
+        fragmentTransaction.replace(R.id.content, accountFragment, fragmentTag).commit();
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -146,7 +143,7 @@ public class AccountActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Uri> task) {
                 if (task.isSuccessful()) {
                     Uri downloadUri = task.getResult();
-                    //update user profile picture URL and refresh fragment.
+                    //update user profile picture URL and refresh accountFragment.
                     UserData.currentUser.updateProfile(new UserProfileChangeRequest.Builder().setPhotoUri(downloadUri).build()).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -162,7 +159,7 @@ public class AccountActivity extends AppCompatActivity {
 
     }
     private void refreshFragment(){
-        Fragment currentFragment = this.getSupportFragmentManager().findFragmentByTag(tag);
+        Fragment currentFragment = this.getSupportFragmentManager().findFragmentByTag(fragmentTag);
         fragmentTransaction = fragmentManager.beginTransaction();
         if (Build.VERSION.SDK_INT >= 26) {
             fragmentTransaction.setReorderingAllowed(false);

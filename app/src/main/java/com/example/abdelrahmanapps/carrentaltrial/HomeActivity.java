@@ -44,7 +44,7 @@ public class HomeActivity extends AppCompatActivity {
     private static final String TAG = HomeActivity.class.getSimpleName();
 
     private FragmentManager fragmentManager;
-    private Fragment bookingFragment;
+    private Fragment homeFragment;
 
     private ShareActionProvider mShareActionProvider;
     ImageView profileImage;
@@ -62,6 +62,7 @@ public class HomeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        //side drawer for options.
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
                 drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -73,15 +74,19 @@ public class HomeActivity extends AppCompatActivity {
                 Manifest.permission.READ_EXTERNAL_STORAGE};
 
         checkPemissions();
-        bookingFragment = new BookingFragment();
+
+        //default fragment for the home activity.
+        homeFragment = new BookingFragment();
         fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_content, bookingFragment).commit();
-        navigationView = findViewById(R.id.nav_view);
+        fragmentTransaction.replace(R.id.fragment_content, homeFragment).commit();
 
+
+        navigationView = findViewById(R.id.nav_view);
         profileImage = navigationView.getHeaderView(0).findViewById(R.id.nav_header_profPic);
         profileName = navigationView.getHeaderView(0).findViewById(R.id.profile_name);
 
+        //drawer's profile picture listener.
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,6 +97,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        //fragment/activity switching in case one of the options in the menu was selected.
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -99,9 +105,9 @@ public class HomeActivity extends AppCompatActivity {
                 int id = item.getItemId();
 
                 if (id == R.id.action_booking) {
-                    bookingFragment = new BookingFragment();
+                    homeFragment = new BookingFragment();
                 } else if (id == R.id.action_search) {
-                    bookingFragment = new SearchCarFragment();
+                    homeFragment = new SearchCarFragment();
 
                 } else if (id == R.id.action_share) {
                     //mShareActionProvider = (ShareActionProvider) item.getActionProvider();
@@ -114,9 +120,9 @@ public class HomeActivity extends AppCompatActivity {
                     finish();
 
                 } else if (id == R.id.action_about) {
-                    bookingFragment = new BusinessFragment();
+                    homeFragment = new BusinessFragment();
                 } else if (id == R.id.action_info) {
-                    bookingFragment = new InformationFragment();
+                    homeFragment = new InformationFragment();
                 } else if (id == R.id.action_logout) {
                     FirebaseAuth.getInstance().signOut();
                     Intent logoutIntent = new Intent(HomeActivity.this, MainActivity.class);
@@ -125,8 +131,7 @@ public class HomeActivity extends AppCompatActivity {
                     finish();
                 }
 
-                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.fragment_content, bookingFragment).commit();
+                changeFragment(homeFragment);
 
                 DrawerLayout drawer = findViewById(R.id.drawer_layout);
                 drawer.closeDrawer(GravityCompat.START);
@@ -134,16 +139,22 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        checkRequests();
+
+    }
+
+    private void changeFragment(Fragment fragment){
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_content, fragment).commit();
+        overridePendingTransition(R.anim.fui_slide_in_right, R.anim.fui_slide_out_left);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
+        //setting UI for the current user (image and name).
         profileName.setText(UserData.currentUser.getDisplayName());
         if(UserData.currentUser.getPhotoUrl()!=null) {
-        ///    Picasso.get().load(UserData.currentUser.getPhotoUrl()).into(profileImage);
-
 
             Picasso.get()
                     .load(UserData.currentUser.getPhotoUrl())
@@ -202,30 +213,12 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.home, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        /*if (id == R.id.action_settings) {
-            return true;
-        }*/
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
         if (requestCode == Constants.REQUEST_PERMISSIONS_STORAGE_LOCATION) {
-            // If request is cancelled, the result arrays are empty.
+            //if permissions needed are granted continue.
             if (grantResults.length > 2
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED
@@ -233,6 +226,7 @@ public class HomeActivity extends AppCompatActivity {
                 Helper.displayErrorMessage(this,"thank you");
 
             } else {
+                //if permissions needed are not granted either provide permissions again or exist the application.
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage("Unable to proceed without the following permissions: \n" +
                         "1. Need Storage permission for access to car/personal profile pictures. \n" +
@@ -250,12 +244,15 @@ public class HomeActivity extends AppCompatActivity {
                 });
                 AlertDialog dialog = builder.create();
                 dialog.show();
-                // permission denied, boo! Disable the
-                // functionality that depends on this permission.
             }
 
             return;
         }
+
+    }
+
+
+    private void checkRequests(){
 
     }
 }

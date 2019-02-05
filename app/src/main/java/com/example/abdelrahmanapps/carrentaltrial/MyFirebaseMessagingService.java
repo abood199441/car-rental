@@ -11,7 +11,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
 
-
+    //used for notifications.
     @Override
     public void onNewToken(String s) {
         super.onNewToken(s);
